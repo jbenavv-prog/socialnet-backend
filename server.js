@@ -8,7 +8,7 @@ app.use(express.json());
 
 const { SERVER_PORT, SERVER_HOST, MONGODB_URI } = process.env;
 
-require('./routes')(app);
+require('./app/routes')(app);
 
 mongoose
   .connect(MONGODB_URI)
