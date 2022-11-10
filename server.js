@@ -8,11 +8,15 @@ app.use(express.json());
 
 const { SERVER_PORT, SERVER_HOST, MONGODB_URI } = process.env;
 
+require('./routes')(app);
+
 mongoose
   .connect(MONGODB_URI)
   .then(() => {
     app.listen(SERVER_PORT, () => {
-      console.log(`DB connected and Listening on ${SERVER_HOST}:${SERVER_PORT}`);
+      console.log(
+        `DB connected and listening on ${SERVER_HOST}:${SERVER_PORT}`
+      );
     });
   })
   .catch((err) => {
