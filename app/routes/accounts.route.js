@@ -1,23 +1,12 @@
 const express = require("express");
+const {
+  getAccounts,
+  newAccount,
+} = require("../controllers/account.controller");
 const router = express.Router();
-const Account = require("../models/accounts.model");
 
-router.get("/getAccounts", (req, res) => {
-  console.log("accounts/ api works!");
-  res.send("accounts/ api works!");
-});
+router.get("/getAccounts", getAccounts);
 
-router.post("/newAccount", async (req, res) => {
-  try {
-    await Account.create(req.body);
-    res.status(200).json({
-      message: "Account created!",
-    });
-  } catch (error) {
-    res.status(400).json({
-      message: error.message,
-    });
-  }
-});
+router.post("/newAccount", newAccount);
 
 module.exports = router;
