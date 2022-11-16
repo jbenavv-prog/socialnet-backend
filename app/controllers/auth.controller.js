@@ -1,5 +1,6 @@
 const Account = require("../models/accounts.model");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const login = async (req, res) => {
   const user = req.body;
@@ -12,16 +13,28 @@ const login = async (req, res) => {
     });
   }
 
-  const isCorrectPassword = await bcrypt.compare(user.password, result.password);
+  const isCorrectPassword = await bcrypt.compare(
+    user.password,
+    result.password
+  );
 
   if (isCorrectPassword && result.isActive) {
-    res.status(200).json({
-      ok: true,
-      data: {
+    const token = jwt.sign(
+      {
         fullName: result.fullName,
         email: result.email,
         role: result.role,
       },
+      process.env.SECRET_KEY
+    );
+
+    res.status(200).json({
+      ok: true,
+      token,
+    });
+  } else {
+    res.status(403).json({
+      message: "Contraseña incorrecta o usuario inactivo",
     });
   }
 };
