@@ -8,7 +8,7 @@ const login = async (req, res) => {
   const result = await Account.findOne({ email: user.email });
 
   if (!result) {
-    res.status(404).json({
+    return res.status(404).json({
       error: "Usuario no registrado",
     });
   }

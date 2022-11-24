@@ -8,7 +8,6 @@ const getAccounts = (req, res) => {
 };
 
 const newAccount = async (req, res) => {
-  console.log(req.body.password);
   try {
     const user = req.body;
     const passwordHash = await bcrypt.hash(user.password, saltRounds);
