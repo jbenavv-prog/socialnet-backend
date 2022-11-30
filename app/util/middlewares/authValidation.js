@@ -9,7 +9,7 @@ const authValidation = (req, res, next) => {
     return res.status(403).send("A token is required for authentication");
   }
   try {
-    jwt.verify(token, config.SECRET_KEY);
+    const decoded = jwt.verify(token, config.SECRET_KEY);
     //  req.user = decoded;
   } catch (err) {
     return res.status(401).send("Invalid Token");
