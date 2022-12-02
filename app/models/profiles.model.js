@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
-const { schema } = require("./accounts.model");
 const Schema = mongoose.Schema;
 
 const profileSchema = new Schema({
   idAccount: {
-    type: schema.objectId,
+    type: Schema.ObjectId,
     ref: "Account",
+    required: true,
+    unique: true,
   },
   phone: {
     type: String,
